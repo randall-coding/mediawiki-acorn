@@ -1,0 +1,41 @@
+containers: {
+    mediawiki: {
+        image: "mediawiki:1.40.1"
+        ports: {
+            publish: [
+                "80:80/http",
+            ]
+        }
+        dirs: {
+            "/var/www/html/images": "volume://wikimages"
+        }
+        dependsOn: ["mariadb"]
+        consumes: ["mariadb"]
+    }
+
+    mariadb: {
+        image: "mariadb:10.3"
+        ports: {
+            expose: ["3306:3306/tcp"]
+        }
+        dirs: {
+            "/var/lib/mysql": "volume://db"
+        }
+        env: {
+            MYSQL_USER: "wikiuser"
+            MYSQL_RANDOM_ROOT_PASSWORD: "true"
+            MYSQL_DATABASE: "my_wiki"
+            MYSQL_PASSWORD: "secretpassword"
+        }
+    }
+}
+
+volumes: db: {
+    size: "1G"
+    accessModes: "readWriteOnce"
+}
+
+volumes: wikimages: {
+    size: "1G"
+    accessModes: "readWriteOnce"
+}
