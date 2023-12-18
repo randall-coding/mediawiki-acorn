@@ -48,13 +48,19 @@ acorn secret create \
 ```
 
 ## Deploying Acorn
-Now that we have the acorn cli configured, we can create and deploy our acorn image with a few simple commands.  You can modify the container RAM by editing the `run` command.
+Now that we have the acorn cli configured, we can create and deploy our acorn image with a few simple commands.
+
+Clone the repo locally if you haven't already with:
+
+`git clone https://github.com/randall-coding/mediawiki-acorn.git`
+
+Next build and run.  You can modify the container RAM by editing the `run` command.
 
 `acorn build -t mediawiki`
 
 `acorn run -s mediawiki:mediawiki -n mediawiki --memory=1Gi mediawiki`
 
-Visit your dashboard to see if your deployment was successful.
+Visit your acorn dashboard to see if your deployment was successful.
 
 Click on the MediaWiki deployment, and find the endpoint section on the right side panel.  This is your MediaWiki instance link.
 
