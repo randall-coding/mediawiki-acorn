@@ -25,9 +25,13 @@ containers: {
             MYSQL_USER: "wikiuser"
             MYSQL_RANDOM_ROOT_PASSWORD: "true"
             MYSQL_DATABASE: "my_wiki"
-            MYSQL_PASSWORD: "secretpassword"
+            MYSQL_PASSWORD: "secret://mediawiki/db_password"
         }
     }
+}
+
+secrets: mediawiki: {
+    external: "mediawiki"
 }
 
 volumes: db: {
