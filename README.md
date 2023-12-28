@@ -38,13 +38,15 @@ Back in our local command terminal login to acorn.io with: <br>
 
 ## Preparing Secrets File
 Your server has settings controlled by a secret file:  
- * **db_password** - your chosen database password
+ * **password** - your chosen database password
+ * **username** - the database username
 
 Create secrets for your application using acorn-cli.  Change the <> values to your actual credentials.
 ```
 acorn secret create \
- --data db_password=<password> \
-   mediawiki
+ --data password=<password> \
+ --data username=wikiuser \
+   mediawiki-mariadb
 ```
 
 ## Deploying Acorn
@@ -58,7 +60,7 @@ Next build and run.  You can modify the container RAM by editing the `run` comma
 
 `acorn build -t mediawiki`
 
-`acorn run -s mediawiki:mediawiki -n mediawiki --memory=1Gi mediawiki`
+`acorn run -s mediawiki-mariadb:mediawiki-mariadb -n mediawiki --memory=1Gi ghcr.io/randall-coding/acorn/mediawiki`
 
 Visit your acorn dashboard to see if your deployment was successful.
 
@@ -110,6 +112,8 @@ Then press 'enter' to select the first container.
 When you land on the bash:
 
 ```bash
+apt update
+apt install nano
 nano /var/www/html/LocalSettings.php
 ```
 
