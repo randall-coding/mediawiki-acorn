@@ -12,31 +12,22 @@ containers: {
         dependsOn: ["mariadb"]
         consumes: ["mariadb"]
     }
+}
 
-    mariadb: {
-        image: "mariadb:10.3"
-        ports: {
-            expose: ["3306:3306/tcp"]
-        }
-        dirs: {
-            "/var/lib/mysql": "volume://db"
-        }
-        env: {
-            MYSQL_USER: "wikiuser"
-            MYSQL_RANDOM_ROOT_PASSWORD: "true"
-            MYSQL_DATABASE: "my_wiki"
-            MYSQL_PASSWORD: "secret://mediawiki/db_password"
-        }
+services: mariadb: {
+    image: "ghcr.io/acorn-io/mariadb:v10.#.#-#"
+    serviceArgs: {
+        dbName: "my_wiki"
     }
+    secrets: ["mediawiki-mariadb: user"]
 }
 
 secrets: mediawiki: {
     external: "mediawiki"
 }
 
-volumes: db: {
-    size: "1G"
-    accessModes: "readWriteOnce"
+secrets: "mediawiki-mariadb": {
+    external: "mediawiki-mariadb"
 }
 
 volumes: wikimages: {
